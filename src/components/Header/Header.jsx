@@ -34,7 +34,7 @@ const Logo = () => (
   </Flex>
 )
 
-const NavLink = ({ children, href, isActive, onClick }) => (
+const NavLink = ({ children, isActive, onClick }) => (
   <Button
     variant="ghost"
     color={isActive ? "brand.400" : "section.darkText"} 
@@ -53,7 +53,7 @@ const NavLink = ({ children, href, isActive, onClick }) => (
 
 export default function Header() {
   const [activeLink, setActiveLink] = useState("inicio")
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { onOpen, onClose } = useDisclosure()
 
   const navItems = [
     { label: "Inicio", key: "inicio" },
