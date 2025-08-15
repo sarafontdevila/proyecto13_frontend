@@ -12,10 +12,10 @@ export default function HeroSection() {
         <VStack gap={12} textAlign="center" maxW="4xl" mx="auto">
           <Box mb={16}>
             <Image
-              src="./src/assets/HeaderCamion.jpg"
+              src="./src/assets/camionAtardecer.png"
               alt="Camión grúa moderno trabajando"
               w="full"
-              maxW="5xl"
+              maxW="100xl"
               h={{ base: 56, md: 72, lg: 96 }}
               objectFit="cover"
               borderRadius="lg"
