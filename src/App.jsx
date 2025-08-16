@@ -1,15 +1,19 @@
-import React from 'react'
-import Header from './components/Header/Header.jsx'
-import HeroSection from './components/HeroSection/HeroSection.jsx'
+import { ChakraProvider } from "@chakra-ui/react"
+import { ProductoProvider } from "./contexts/ProductoProvider.jsx"
+import Header from "./components/Header/Header.jsx"
+import Inicio from "./pages/Inicio/inicio.jsx"
 
-const App = () => {
+function App() {
   return (
-    <>
-      <Header />
-      <HeroSection />
-      
-    </>
+    <ChakraProvider>
+      <ProductoProvider>
+        <Header />
+        <Inicio />
+      </ProductoProvider>
+    </ChakraProvider>
   )
-};
+}
 
-export default App;
+export default App
+
+ 

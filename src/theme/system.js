@@ -1,4 +1,4 @@
-import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react"
+/*import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react"
 
 const customConfig = defineConfig({
   theme: {
@@ -52,4 +52,56 @@ const customConfig = defineConfig({
   }
 })
 
-export const system = createSystem(defaultConfig, customConfig)
+export const system = createSystem(defaultConfig, customConfig)*/
+
+// theme/system.js
+import { extendTheme } from "@chakra-ui/react";
+
+const theme = extendTheme({
+  colors: {
+    brand: {
+      50: '#fff5f0',
+      100: '#fed7aa',
+      200: '#fdba74',
+      300: '#fb923c',
+      400: '#f97316',
+      500: '#f56500',
+      600: '#dd6b20',
+      700: '#c2410c',
+      800: '#9a3412',
+      900: '#7c2d12',
+    },
+    section: {
+      dark: '#000000',
+      light: '#ffffff',
+      darkText: '#ffffff',
+      lightText: '#1a202c',
+    },
+  },
+  semanticTokens: {
+    colors: {
+      primary: {
+        default: 'brand.500',
+        _dark: 'brand.400',
+      },
+      accent: {
+        default: 'brand.500',
+        _dark: 'brand.400',
+      },
+    },
+  },
+  fonts: {
+    heading: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
+    body: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
+  },
+  styles: {
+    global: {
+      body: {
+        bg: 'section.dark',
+        color: 'section.darkText',
+      },
+    },
+  },
+});
+
+export default theme;

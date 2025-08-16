@@ -2,11 +2,12 @@ import { Box, Container, Heading, Text, Button, Image, VStack, Flex } from "@cha
 
 export default function HeroSection() {
   return (
-    <Box position="relative" bg="section.dark" color="section.darkText">
+    <Box position="relative" bg="section.dark
+    " color="section.darkText">
       <Box 
         position="absolute" 
         inset={0} 
-        bg="blackAlpha.200" 
+        bg="blackAlpha.100" 
       />
       <Container maxW="7xl" py={{ base: 24, lg: 32 }} position="relative" zIndex={1}>
         <VStack gap={12} textAlign="center" maxW="4xl" mx="auto">
