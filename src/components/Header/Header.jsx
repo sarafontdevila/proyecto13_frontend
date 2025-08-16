@@ -40,7 +40,7 @@ const NavLink = ({ children, isActive, onClick }) => (
     color={isActive ? "brand.400" : "section.darkText"} 
     _hover={{
       color: "brand.400",
-      bg: "whiteAlpha.100",
+      bg: "gray.800",
     }}
     fontSize="md"
     fontWeight="medium"
@@ -77,7 +77,7 @@ export default function Header() {
       top={0}
       zIndex={1000}
       borderBottom="1px solid"
-      borderColor="gray.800"
+      borderColor="gray.700"
     >
       <Container maxW="7xl">
         <Flex justify="space-between" align="center">
@@ -96,7 +96,7 @@ export default function Header() {
               variant="outline"
               borderColor="section.darkText" 
               color="section.darkText" 
-              _hover={{ bg: "section.darkText", color: "section.lightText" }} 
+              _hover={{ bg: "section.darkText", color: "section.dark" }} 
               size="sm"
             >
               Login
@@ -116,7 +116,7 @@ export default function Header() {
             icon={<Icon as={GiHamburgerMenu} />}
             variant="ghost"
             color="section.darkText" 
-            _hover={{ bg: "whiteAlpha.100" }}
+            _hover={{ bg: "gray.800" }}
             display={{ base: "flex", lg: "none" }}
             onClick={onOpen}
           />

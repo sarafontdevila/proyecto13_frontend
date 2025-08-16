@@ -10,7 +10,7 @@ export const ProductoProvider = ({ children }) => {
   useEffect (() => {
     const fetchAllProductos = async () => {
       try {
-        const response = await fetch('http://localhost:3000.com/api/v1/productos')
+        const response = await fetch('http://localhost:3000/api/v1/productos')
         const data = await response.json()
         setProductos(data)
         setLoading(false)

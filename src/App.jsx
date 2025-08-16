@@ -5,12 +5,10 @@ import Inicio from "./pages/Inicio/inicio.jsx"
 
 function App() {
   return (
-    <ChakraProvider>
       <ProductoProvider>
         <Header />
         <Inicio />
       </ProductoProvider>
-    </ChakraProvider>
   )
 }
 
