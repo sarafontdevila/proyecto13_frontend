@@ -9,7 +9,7 @@ const ProductoCard = ({
   estado,
   precioVenta,
   imagen,
-  onVerDetalles,
+  onComprar,
 }) => {
 
   const enStock = estado === "Disponible" || estado === "En Stock"
@@ -109,9 +109,9 @@ const ProductoCard = ({
           _active={{
             bg: "blue.800",
           }}
-          onClick={onVerDetalles}
+          onClick={onComprar}
         >
-          Ver Detalles
+          Comprar
         </Button>
       </VStack>
     </Box>

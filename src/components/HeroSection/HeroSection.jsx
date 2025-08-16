@@ -1,4 +1,5 @@
 import { Box, Container, Heading, Text, Button, Image, VStack, Flex } from "@chakra-ui/react";
+import { Link } from "react-router-dom"
 
 export default function HeroSection() {
   return (
@@ -31,6 +32,7 @@ export default function HeroSection() {
           </Text>
 
           <Flex direction={{ base: "column", sm: "row" }} gap={4}>
+          
             <Button
               bg="buttonBg"
               _hover={{ bg: "brand.700" }}

@@ -10,13 +10,14 @@ export const ProductoProvider = ({ children }) => {
   useEffect (() => {
     const fetchAllProductos = async () => {
       try {
+        setLoading(true)
+
         const response = await fetch('http://localhost:3000/api/v1/productos')
         const data = await response.json()
         setProductos(data)
         setLoading(false)
       } catch (error) {
         setError(error)
-        setLoading(false)
       } finally {
         setLoading(false)
       }

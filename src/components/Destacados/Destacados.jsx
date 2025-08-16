@@ -1,47 +1,32 @@
-import { SimpleGrid, Container, Heading, Text, Spinner, Alert, VStack, Button } from "@chakra-ui/react"
+import { SimpleGrid, Container, Heading, Text, VStack, Button } from "@chakra-ui/react"
+import { Link } from "react-router-dom"
 import ProductoCard from "../ProductoCard/ProductoCard.jsx"
 import { useProductos } from "../../customHook/useProductos"
+import { Loading, ErrorCarga } from "../UI"
 
 const Destacados = () => {
   const { productos, loading, error } = useProductos()
 
-  const handleVerDetalles = (producto) => {
-    console.log(`Ver detalles de: ${producto}`)
-  }
-
-  const handleVerTodos = () => {
-    console.log("Ver todos los camiones")
+  const handleComprar = (producto) => {
+    console.log(`Ver detalles de: ${producto.marca} ${producto.modelo}`)
   }
 
   if (loading) {
-    return (
-      <Container maxW="container.xl" py="40px">
-        <VStack spacing={4}>
-          <Spinner size="xl" color="blue.500" />
-          <Text>Cargando productos...</Text>
-        </VStack>
-      </Container>
-    )
+    return <Loading />
   }
 
   if (error) {
     console.error(error)
-    return (
-      <Container maxW="container.xl" py="40px">
-        <Alert status="error">
-          Error al cargar los productos
-        </Alert>
-      </Container>
-    )
+    return <ErrorCarga />
   }
 
   return (
     <Container maxW="container.xl" py="40px">
       <VStack spacing={8} mb={8}>
-        <Heading as="h1" size="2xl" textAlign="center" color="gray.800">
+        <Heading as="h1" size="2xl" textAlign="center" color="section.lightText">
           Camiones Grúa en Stock
         </Heading>
-        <Text fontSize="lg" color="gray.600" textAlign="center">
+        <Text fontSize="lg" color="brand.300" textAlign="center">
           Disponibles para entrega inmediata
         </Text>
       </VStack>
@@ -51,15 +36,23 @@ const Destacados = () => {
           <ProductoCard
             key={producto._id}
             {...producto}
-            onVerDetalles={() => handleVerDetalles(`${producto.marca} ${producto.modelo}`)}
+            onComprar={() => handleComprar(producto)}
           />
         ))}
       </SimpleGrid>
 
       <VStack spacing={4}>
-        <Button variant="outline" colorScheme="blue" size="lg" onClick={handleVerTodos}>
-          🚛 Ver Todos los Camiones
-        </Button>
+        <Link to="/stock">
+          <Button 
+            variant="outline" 
+            borderColor="brand.500"
+            color="brand.500"
+            _hover={{ bg: "brand.500", color: "white" }}
+            size="lg"
+          >
+            🚛 Ver Todos los Camiones
+          </Button>
+        </Link>
       </VStack>
     </Container>
   )

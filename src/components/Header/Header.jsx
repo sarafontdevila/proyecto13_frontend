@@ -10,62 +10,60 @@ import {
 } from "@chakra-ui/react"
 import { Icon } from "@chakra-ui/react"
 import { GiHamburgerMenu } from "react-icons/gi"
-import { useState } from "react"
+import { Link, useLocation } from "react-router-dom"
 
 const Logo = () => (
-  <Flex align="center" gap={2}>
-    <Box
-      w={8}
-      h={8}
-      bg="brand.500" 
-      borderRadius="md"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      color="section.darkText" 
-      fontWeight="bold"
-      fontSize="lg"
-    >
-      🚛
-    </Box>
-    <Text fontSize="xl" fontWeight="bold" color="section.darkText"> 
-      Tutigruas
-    </Text>
-  </Flex>
+  <Link to="/">
+    <Flex align="center" gap={2} cursor="pointer">
+      <Box
+        w={8}
+        h={8}
+        bg="brand.500" 
+        borderRadius="md"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        color="section.darkText" 
+        fontWeight="bold"
+        fontSize="lg"
+      >
+        🚛
+      </Box>
+      <Text fontSize="xl" fontWeight="bold" color="section.darkText"> 
+        Tutigruas
+      </Text>
+    </Flex>
+  </Link>
 )
 
-const NavLink = ({ children, isActive, onClick }) => (
-  <Button
-    variant="ghost"
-    color={isActive ? "brand.400" : "section.darkText"} 
-    _hover={{
-      color: "brand.400",
-      bg: "gray.800",
-    }}
-    fontSize="md"
-    fontWeight="medium"
-    px={4}
-    onClick={onClick}
-  >
-    {children}
-  </Button>
+const NavLink = ({ children, to, isActive }) => (
+  <Link to={to}>
+    <Button
+      variant="ghost"
+      color={isActive ? "brand.400" : "section.darkText"} 
+      _hover={{
+        color: "brand.400",
+        bg: "gray.800",
+      }}
+      fontSize="md"
+      fontWeight="medium"
+      px={4}
+    >
+      {children}
+    </Button>
+  </Link>
 )
 
 export default function Header() {
-  const [activeLink, setActiveLink] = useState("inicio")
-  const { onOpen, onClose } = useDisclosure()
+  const { onOpen } = useDisclosure()
+  const location = useLocation()
 
   const navItems = [
-    { label: "Inicio", key: "inicio" },
-    { label: "Camiones en Stock", key: "stock" },
-    { label: "Servicios", key: "servicios" },
-    { label: "Contacto", key: "contacto" },
+    { label: "Inicio", path: "/" },
+    { label: "Camiones en Stock", path: "/stock" },
+    { label: "Servicios", path: "/servicios" },
+    { label: "Contacto", path: "/contacto" },
   ]
-
-  const handleNavClick = (key) => {
-    setActiveLink(key)
-    onClose()
-  }
 
   return (
     <Box
@@ -85,7 +83,11 @@ export default function Header() {
 
           <HStack gap={1} display={{ base: "none", lg: "flex" }}>
             {navItems.map((item) => (
-              <NavLink key={item.key} isActive={activeLink === item.key} onClick={() => handleNavClick(item.key)}>
+              <NavLink 
+                key={item.path} 
+                to={item.path}
+                isActive={location.pathname === item.path}
+              >
                 {item.label}
               </NavLink>
             ))}
