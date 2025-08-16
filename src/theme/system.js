@@ -54,10 +54,16 @@ const customConfig = defineConfig({
 
 export const system = createSystem(defaultConfig, customConfig)*/
 
-// theme/system.js
+
 import { extendTheme } from "@chakra-ui/react";
 
+const config = {
+  initialColorMode: "dark", 
+  useSystemColorMode: false, 
+};
+
 const theme = extendTheme({
+  config,
   colors: {
     brand: {
       50: '#fff5f0',
@@ -97,8 +103,8 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: 'section.dark',
-        color: 'section.darkText',
+        bg: 'white',
+        color: 'gray.800'
       },
     },
   },

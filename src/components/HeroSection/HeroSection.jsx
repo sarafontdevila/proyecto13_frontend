@@ -2,8 +2,8 @@ import { Box, Container, Heading, Text, Button, Image, VStack, Flex } from "@cha
 
 export default function HeroSection() {
   return (
-    <Box position="relative" bg="section.dark
-    " color="section.darkText">
+    <Box position="relative" bg="section.dark"
+     color="section.darkText">
       <Box 
         position="absolute" 
         inset={0} 
