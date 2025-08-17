@@ -3,6 +3,7 @@ import { ProductoProvider } from "./contexts/ProductoProvider.jsx"
 import Header from "./components/Header/Header.jsx"
 import Inicio from "./pages/Inicio/inicio.jsx"
 import Stock from "./pages/Stock/Stock.jsx"
+import Footer from './pages/Footer/Footer.jsx'
 
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/" element={<Inicio />} />
           <Route path="/stock" element={<Stock />} />
         </Routes>
+        <Footer />
       </ProductoProvider>
     </>
   )

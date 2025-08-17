@@ -35,7 +35,7 @@ const Stock = () => {
           <ProductoCard
             key={producto._id}
             {...producto}
-            onVerDetalles={() => handleComprar(producto)}
+            onComprar={() => handleComprar(producto)}
           />
         ))}
       </SimpleGrid>
