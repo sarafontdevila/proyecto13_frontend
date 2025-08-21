@@ -21,7 +21,7 @@ const Destacados = () => {
   }
 
   return (
-    <Container maxW="container.xl" py="40px">
+    <Container maxW="container.xl" py="40px" bg="section.lightBg">
       <VStack spacing={8} mb={8}>
         <Heading as="h1" size="2xl" textAlign="center" color="section.lightText">
           Camiones Grúa en Stock

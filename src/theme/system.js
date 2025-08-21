@@ -5,6 +5,7 @@ export const system = extendTheme({
     section: {
       dark: "#000000",
       light: "#ffffff",
+      lightBg: "#E8F4F8",
       darkText: "#ffffff",
       lightText: "#1a202c",
     },
