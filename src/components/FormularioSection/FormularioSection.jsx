@@ -43,6 +43,17 @@ export default function FormularioSection() {
             </VStack>
 
             <VStack spacing={6} align="stretch">
+            <Box>
+                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
+                  Email
+                </Text>
+                <Input
+                  type="text"
+                  placeholder="Email"
+                  focusBorderColor="brand.500"
+                  borderColor="gray.300"
+                />
+              </Box>
               <Box>
                 <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
                   Tipo de camión / características
@@ -141,6 +152,17 @@ export default function FormularioSection() {
                 <Input
                   type="number"
                   placeholder="Ej: 15"
+                  focusBorderColor="brand.500"
+                  borderColor="gray.300"
+                />
+              </Box>
+              <Box>
+                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
+                 Ejes
+                </Text>
+                <Input
+                  type="number"
+                  placeholder="Ej: 4"
                   focusBorderColor="brand.500"
                   borderColor="gray.300"
                 />
