@@ -42,7 +42,7 @@ export default function FormularioSection() {
               </Text>
             </VStack>
 
-            <VStack spacing={6} align="stretch">
+            <VStack spacing={6} align="stretch" flex="1">
             <Box>
                 <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
                   Email
@@ -84,6 +84,7 @@ export default function FormularioSection() {
               </Box>
 
               <Button
+                mb="3"
                 bg="buttonBg"
                 color="buttonText"
                 size="lg"
@@ -120,7 +121,7 @@ export default function FormularioSection() {
               </Text>
             </VStack>
 
-            <VStack spacing={6} align="stretch">
+            <VStack spacing={6} align="stretch" flex="1">
               <Box>
                 <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
                   Altura (m)
@@ -169,6 +170,7 @@ export default function FormularioSection() {
               </Box>
 
               <Button
+                mb="3"
                 bg="buttonBg"
                 color="buttonText"
                 size="lg"
