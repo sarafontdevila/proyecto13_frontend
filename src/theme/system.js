@@ -26,8 +26,14 @@ export const system = extendTheme({
     colors: {
       sectionBg: { default: "section.light", _dark: "section.dark" },
       sectionText: { default: "section.lightText", _dark: "section.darkText" },
+      
       buttonBg: { default: "brand.500", _dark: "brand.400" },
       buttonText: { default: "section.lightText", _dark: "section.darkText" },
+      
+      buttonSecondaryBg: { default: "blue.600", _dark: "blue.500" },
+      buttonSecondaryText: { default: "white", _dark: "white" },
+      buttonSecondaryHover: { default: "blue.700", _dark: "blue.600" },
+      buttonSecondaryActive: { default: "blue.800", _dark: "blue.700" },
     },
   },
   styles: {
@@ -39,4 +45,3 @@ export const system = extendTheme({
     },
   },
 })
-

@@ -31,7 +31,7 @@ export default function FormularioSection() {
                 alignItems="center" 
                 justifyContent="center"
               >
-                <Icon as={FiSearch} w={8} h={8} color="brand.700" />
+                <Icon as={FiSearch} w={8} h={8} color="blue.600" />
               </Box>
               <Heading size="lg" color="sectionText" textAlign="center">
                 ¿Buscas un camión específico?
@@ -85,11 +85,11 @@ export default function FormularioSection() {
 
               <Button
                 mb="3"
-                bg="buttonBg"
-                color="buttonText"
+                bg="buttonSecondaryBg"
+                color="buttonSecondaryText"
                 size="lg"
                 leftIcon={<Icon as={FiSearch} />}
-                _hover={{ bg: "brand.600" }}
+                _hover={{ bg: "buttonSecondaryHover" }}
                 transition="all 0.2s"
               >
                 Solicitar Búsqueda

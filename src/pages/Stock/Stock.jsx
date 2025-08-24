@@ -25,7 +25,7 @@ const Stock = () => {
         <Heading as="h1" size="2xl" textAlign="center" color="section.lightText">
           Inventario Completo
         </Heading>
-        <Text fontSize="lg" color="brand.300" textAlign="center">
+        <Text fontSize="lg" color="SectionText" textAlign="center">
           {productos.length} camiones grúa disponibles
         </Text>
       </VStack>
