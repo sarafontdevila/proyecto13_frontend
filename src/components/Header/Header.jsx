@@ -94,6 +94,7 @@ export default function Header() {
           </HStack>
 
           <HStack gap={3} display={{ base: "none", lg: "flex" }}>
+            <Link to="/login">
             <Button
               variant="outline"
               borderColor="section.darkText" 
@@ -103,6 +104,8 @@ export default function Header() {
             >
               Login
             </Button>
+            </Link>
+            <Link to="/register">
             <Button
               bg="brand.500" 
               _hover={{ bg: "brand.600" }} 
@@ -111,6 +114,7 @@ export default function Header() {
             >
               Registro
             </Button>
+            </Link>
           </HStack>
 
           <IconButton
