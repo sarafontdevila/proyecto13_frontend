@@ -4,21 +4,87 @@ import {
   VStack, 
   Heading, 
   Text, 
-  Textarea, 
-  Select, 
-  Input, 
-  Button, 
   Icon,
-  Container
+  Container,
+  Image,
+  useToast
 } from "@chakra-ui/react"
 import { FiSearch } from "react-icons/fi"
-import { BsCalculator } from "react-icons/bs"
+import HeaderCamion from "../../assets/HeaderCamion.jpg"
+import FormularioBase from "../FormularioBase/FormularioBase.jsx" 
 
 export default function FormularioSection() {
+  const toast = useToast()
+
+  const fields = [
+    {
+      name: "nombre",
+      label: "Nombre",
+      type: "text",
+      placeholder: "Nombre",
+      validation: { required: "El nombre es obligatorio" },
+      fullWidth: true
+    },
+    {
+      name: "apellido",
+      label: "Apellido",
+      type: "text",
+      placeholder: "Apellido",
+      validation: { required: "El apellido es obligatorio" },
+      fullWidth: true
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "text",
+      placeholder: "Email",
+      validation: { required: "El email es obligatorio" },
+      fullWidth: true
+    },
+    {
+      name: "truckType",
+      label: "Tipo de camión / características",
+      type: "textarea",
+      placeholder: "Describe el tipo de camión grúa que necesitas...",
+      validation: { required: "Este campo es obligatorio" },
+      fullWidth: true
+    },
+    {
+      name: "budget",
+      label: "Presupuesto estimado",
+      type: "select",
+      placeholder: "Selecciona tu rango de presupuesto",
+      options: ["Hasta 50.000€", "50.000€ - 100.000€", "100.000€ - 200.000€", "Más de 200.000€"],
+      validation: { required: "Debes seleccionar un presupuesto" },
+      fullWidth: true
+    }
+  ]
+
+  const handleBusqueda = async (data, toast) => {
+    try {
+      console.log("Solicitud de búsqueda:", data)
+      toast({
+        title: "Búsqueda enviada",
+        description: "Estamos buscando el camión ideal para ti.",
+        status: "info",
+        duration: 4000,
+        isClosable: true
+      })
+    } catch (error) {
+      console.error("Error al enviar la solicitud de búsqueda:", error)
+      toast({
+        title: "Error",
+        description: "No se pudo procesar la búsqueda.",
+        status: "error",
+        duration: 4000,
+        isClosable: true
+      })
+    }
+  }
+
   return (
     <Container maxW="7xl" py={12}>
       <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={8}>
-        
         <Box bg="sectionBg" p={8} borderRadius="2xl" boxShadow="lg">
           <VStack spacing={6} align="stretch">
             <VStack spacing={4}>
@@ -42,148 +108,24 @@ export default function FormularioSection() {
               </Text>
             </VStack>
 
-            <VStack spacing={6} align="stretch" flex="1">
-            <Box>
-                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
-                  Email
-                </Text>
-                <Input
-                  type="text"
-                  placeholder="Email"
-                  focusBorderColor="brand.500"
-                  borderColor="gray.300"
-                />
-              </Box>
-              <Box>
-                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
-                  Tipo de camión / características
-                </Text>
-                <Textarea
-                  placeholder="Describe el tipo de camión grúa que necesitas..."
-                  focusBorderColor="brand.500"
-                  borderColor="gray.300"
-                  rows={4}
-                  resize="none"
-                />
-              </Box>
-
-              <Box>
-                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
-                  Presupuesto estimado
-                </Text>
-                <Select 
-                  placeholder="Selecciona tu rango de presupuesto"
-                  focusBorderColor="brand.500"
-                  borderColor="gray.300"
-                >
-                  <option>Hasta 50.000€</option>
-                  <option>50.000€ - 100.000€</option>
-                  <option>100.000€ - 200.000€</option>
-                  <option>Más de 200.000€</option>
-                </Select>
-              </Box>
-
-              <Button
-                mb="3"
-                bg="buttonSecondaryBg"
-                color="buttonSecondaryText"
-                size="lg"
-                leftIcon={<Icon as={FiSearch} />}
-                _hover={{ bg: "buttonSecondaryHover" }}
-                transition="all 0.2s"
-              >
-                Solicitar Búsqueda
-              </Button>
-            </VStack>
+            <FormularioBase
+              fields={fields}
+              submitText="Solicitar Búsqueda"
+              onSubmit={handleBusqueda}
+              toastHandler={toast}
+            />
           </VStack>
         </Box>
 
-       
-        <Box bg="sectionBg" p={8} borderRadius="2xl" boxShadow="lg">
-          <VStack spacing={6} align="stretch">
-            <VStack spacing={4}>
-              <Box 
-                w={16} 
-                h={16} 
-                bg="brand.100" 
-                borderRadius="full" 
-                display="flex" 
-                alignItems="center" 
-                justifyContent="center"
-              >
-                <Icon as={BsCalculator} w={8} h={8} color="brand.700" />
-              </Box>
-              <Heading size="lg" color="sectionText" textAlign="center">
-                ¿Qué camión necesitas?
-              </Heading>
-              <Text color="sectionText" opacity={0.8} textAlign="center" fontSize="sm">
-                Introduce altura, peso y radio y te sugerimos el modelo de grúa ideal.
-              </Text>
-            </VStack>
-
-            <VStack spacing={6} align="stretch" flex="1">
-              <Box>
-                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
-                  Altura (m)
-                </Text>
-                <Input
-                  type="number"
-                  placeholder="Ej: 25"
-                  focusBorderColor="brand.500"
-                  borderColor="gray.300"
-                />
-              </Box>
-
-              <Box>
-                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
-                  Peso a levantar (kg)
-                </Text>
-                <Input
-                  type="number"
-                  placeholder="Ej: 5000"
-                  focusBorderColor="brand.500"
-                  borderColor="gray.300"
-                />
-              </Box>
-
-              <Box>
-                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
-                  Radio (m)
-                </Text>
-                <Input
-                  type="number"
-                  placeholder="Ej: 15"
-                  focusBorderColor="brand.500"
-                  borderColor="gray.300"
-                />
-              </Box>
-              <Box>
-                <Text fontSize="sm" fontWeight="medium" color="sectionText" mb={2}>
-                 Ejes
-                </Text>
-                <Input
-                  type="number"
-                  placeholder="Ej: 4"
-                  focusBorderColor="brand.500"
-                  borderColor="gray.300"
-                />
-              </Box>
-
-              <Button
-                mb="3"
-                bg="buttonBg"
-                color="buttonText"
-                size="lg"
-                leftIcon={<Icon as={BsCalculator} />}
-                _hover={{ bg: "brand.600" }}
-                transition="all 0.2s"
-              >
-                Calcular Grúa Ideal
-              </Button>
-            </VStack>
-          </VStack>
+        <Box borderRadius="2xl" overflow="hidden" boxShadow="lg">
+          <Image 
+            src={HeaderCamion} 
+            alt="Camión al atardecer" 
+            objectFit="cover"
+            w="100%"
+            h="100%"
+          />
         </Box>
-
       </SimpleGrid>
     </Container>
   )

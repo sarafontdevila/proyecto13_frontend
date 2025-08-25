@@ -2,6 +2,7 @@ import { SimpleGrid, Container, Heading, Text, VStack } from "@chakra-ui/react"
 import ProductoCard from "../../components/ProductoCard/ProductoCard.jsx"
 import { useProductos } from "../../customHook/useProductos"
 import { Loading, ErrorCarga } from "../../components/UI"
+import Filtros from "../../components/Filtros/Filtros.jsx"
 
 const Stock = () => {
   const { productos, loading, error } = useProductos()
@@ -20,7 +21,11 @@ const Stock = () => {
   }
 
   return (
+    
     <Container maxW="container.xl" py="40px">
+      <VStack spacing={8} mb={8}>
+      <Filtros/>
+      </VStack>
       <VStack spacing={8} mb={8}>
         <Heading as="h1" size="2xl" textAlign="center" color="section.lightText">
           Inventario Completo

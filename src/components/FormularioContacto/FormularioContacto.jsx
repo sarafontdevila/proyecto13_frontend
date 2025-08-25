@@ -1,123 +1,53 @@
-import {
-  Box,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Button,
-  SimpleGrid,
-  useToast,
-} from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { useToast } from "@chakra-ui/react"
+import FormularioBase from "../FormularioBase/FormularioBase.jsx"
 
 export default function FormularioContacto() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm();
-  const toast = useToast();
+  const toast = useToast()
 
-  const onSubmit = async (data) => {
+  const fields = [
+    { name: "name", label: "Nombre", type: "text", placeholder: "Tu nombre", validation: { required: "El nombre es obligatorio" } },
+
+    { name: "apellido", label: "Apellido", type: "text", placeholder: "Tu apellido", validation: { required: "El apellido es obligatorio" } },
+
+    { name: "email", label: "Email", type: "email", placeholder: "tu@email.com", validation: { required: "El email es obligatorio" } },
+
+    { name: "message", label: "Mensaje", type: "textarea", placeholder: "Cuéntanos más detalles...", validation: { required: "El mensaje es obligatorio" }, fullWidth: true },
+  ]
+
+  const handleContacto = async (data, toast) => {
     try {
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log('Formulario enviado:', data);
-      
+      console.log("Enviando contacto:", data)
       toast({
-        title: 'Mensaje enviado.',
-        description: 'Hemos recibido tu mensaje correctamente.',
-        status: 'success',
+        title: "¡Mensaje enviado!",
+        description: "Gracias por contactarnos, te responderemos pronto.",
+        status: "success",
         duration: 5000,
         isClosable: true,
-      });
-
-      reset();
-
+      })
     } catch (error) {
-      console.error('Error al enviar el formulario:', error);
+      console.error("Error al enviar el contacto:", error)
       toast({
-        title: 'Error.',
-        description: 'No pudimos enviar tu mensaje. Inténtalo de nuevo.',
-        status: 'error',
+        title: "Error",
+        description: "No se pudo enviar el mensaje.",
+        status: "error",
         duration: 5000,
         isClosable: true,
-      });
+      })
     }
-  };
+  }
 
   return (
-    <Box p={8} maxW="700px" mx="auto" borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md">
-
-      <Box as="form" onSubmit={handleSubmit(onSubmit)}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-
-          <FormControl isInvalid={errors.name}>
-            <FormLabel htmlFor="name">Nombre</FormLabel>
-            <Input
-              id="name"
-              placeholder="Tu nombre"
-              {...register('name', { required: 'El nombre es obligatorio' })}
-            />
-          </FormControl>
-
-          <FormControl isInvalid={errors.email}>
-            <FormLabel htmlFor="email">Email</FormLabel>
-            <Input
-              id="email"
-              type="email"
-              placeholder="tu@email.com"
-              {...register('email', {
-                required: 'El email es obligatorio',
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: 'Email inválido',
-                },
-              })}
-            />
-          </FormControl>
-        </SimpleGrid>
-
-        <FormControl mt={6} isInvalid={errors.phone}>
-          <FormLabel htmlFor="phone">Teléfono</FormLabel>
-          <Input
-            id="phone"
-            type="tel"
-            placeholder="Tu teléfono"
-            {...register('phone', { required: 'El teléfono es obligatorio' })}
-          />
-        </FormControl>
-
-        <FormControl mt={6} isInvalid={errors.subject}>
-          <FormLabel htmlFor="subject">Asunto</FormLabel>
-          <Input
-            id="subject"
-            placeholder="¿En qué podemos ayudarte?"
-            {...register('subject', { required: 'El asunto es obligatorio' })}
-          />
-        </FormControl>
-
-        <FormControl mt={6} isInvalid={errors.message}>
-          <FormLabel htmlFor="message">Mensaje</FormLabel>
-          <Textarea
-            id="message"
-            placeholder="Cuéntanos más detalles..."
-            {...register('message', { required: 'El mensaje es obligatorio' })}
-          />
-        </FormControl>
-
-        <Button 
-          mt={8}
-          bg="buttonBg"
-          color="buttonText"
-          isLoading={isSubmitting} 
-          type="submit"
-        >
-          Enviar
-        </Button>
-      </Box>
-    </Box>
-  );
+    <FormularioBase
+      fields={fields}
+      submitText="Enviar"
+      onSubmit={handleContacto}
+      toastHandler={toast}
+      maxW="700px"
+      mx="auto"
+      p={8}
+      borderWidth="1px"
+      borderRadius="lg"
+      boxShadow="md"
+    />
+  )
 }

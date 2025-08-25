@@ -21,10 +21,18 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      // Simula una llamada a la API
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log('Formulario enviado:', data);
-      
+      const response = await fetch("http://localhost:3000/api/v1/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) throw new Error(result.message || "Error en login");
+
+      localStorage.setItem("token", result.token);
+
       toast({
         title: 'Usuario logueado',
         description: 'Te has logueado correctamente',
@@ -144,3 +152,4 @@ export default function Login() {
     </Box>
   )
 }
+

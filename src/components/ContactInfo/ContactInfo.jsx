@@ -3,7 +3,6 @@ import {
   Box,
   SimpleGrid,
   VStack,
-  HStack,
   Text,
   Icon,
 } from '@chakra-ui/react';
@@ -15,7 +14,7 @@ import {
 } from 'react-icons/fa';
 
 export default function ContactInfo() {
-  
+
   const contactItems = [
     {
       icon: FaPhone,
@@ -45,33 +44,37 @@ export default function ContactInfo() {
 
   return (
     <Box maxW="900px" mx="auto" p={{ base: 4, md: 8 }}>
-      <SimpleGrid columns={{ base: 1, sm:2,  md: 2 }} spacing={{ base: 4, md: 8 }}>
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 2 }} spacing={{ base: 4, md: 8 }}>
         {contactItems.map((item, index) => (
           <Box
             key={index}
             p={6}
-            bg="white"
+            bg="section.lightBg" 
             borderRadius="lg"
             boxShadow="md"
+            textAlign="center"
           >
-            <HStack spacing={4} mb={2}>
-              <Icon as={item.icon} color="brand.500" boxSize={6} />
-              <VStack align="start" spacing={0}>
-                <Text fontWeight="600" fontSize="lg" color="gray.600">
-                  {item.title}
-                </Text>
-                <Text fontWeight="bold" fontSize="md" color="section.lightText">
-                  {item.mainText}
-                </Text>
-                <Text fontSize="sm" color="gray.500" mt={-1}>
+            <VStack spacing={3}>
+           
+              <Icon as={item.icon} color="brand.500" boxSize={8} />
+              
+              <Text fontWeight="600" fontSize="lg" color="section.lightText">
+                {item.title}
+              </Text>
+              
+              <Text fontWeight="bold" fontSize="md" color="section.lightText">
+                {item.mainText}
+              </Text>
+              
+              {item.subText && (
+                <Text fontSize="sm" color="section.darkText">
                   {item.subText}
                 </Text>
-              </VStack>
-            </HStack>
+              )}
+            </VStack>
           </Box>
         ))}
       </SimpleGrid>
     </Box>
-  )
- ;
+  );
 }

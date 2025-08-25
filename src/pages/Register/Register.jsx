@@ -21,9 +21,17 @@ export default function Register() {
 
   const onSubmit = async (data) => {
     try {
-      // Simula una llamada a la API
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log('Formulario enviado:', data);
+      const response = await fetch("http://localhost:3000/api/v1/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) throw new Error(result.message || "Error en login");
+
+      localStorage.setItem("token", result.token);
       
       toast({
         title: 'Usuario registrado',
@@ -46,68 +54,6 @@ export default function Register() {
       });
     }
   };
-
-  /*return (
-    <Box minH="calc(100vh - 120px)" display="flex" alignItems="center" justifyContent="center">
-      
-        <Box p={8} maxW={{ base: "90%", md: "800px", lg: "1000px" }} borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md">
-          <Heading as="h1" size="lg" mb={6} textAlign="center">
-            Registro
-          </Heading>
-          <Box as="form" onSubmit={handleSubmit(onSubmit)}>
-          <FormControl isInvalid={errors.name}>
-            <FormLabel htmlFor="name">Nombre</FormLabel>
-            <Input
-              id="name"
-              placeholder="Tu nombre"
-              {...register('name', { required: 'El nombre es obligatorio' })}
-            />
-            </FormControl>
-            <FormControl isInvalid={errors.email}>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <Input
-                id="email"
-                type="email"
-                placeholder="tu@email.com"
-                {...register('email', {
-                  required: 'El email es obligatorio',
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: 'Email inválido',
-                  },
-                })}
-              />
-            </FormControl>
-            <FormControl mt={4} isInvalid={errors.password}>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <Input
-                id="password"
-                type="password"
-                placeholder="*****"
-                {...register('password', {
-                  required: 'El password es obligatorio',
-                  pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message: 'El password debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo especial'
-                  }
-                })}
-              />
-            </FormControl>
-            <Button
-              mt={8}
-              bg="buttonBg"
-              color="buttonText"
-              isLoading={isSubmitting}
-              type="submit"
-              width="full"
-            >
-              Entrar
-            </Button>
-          </Box>
-        </Box>
-    
-    </Box>
-  );*/
   return (
     <Box minH="100vh" bg="section.dark" display="flex" alignItems="center" justifyContent="center" p={4}>
       <Box
