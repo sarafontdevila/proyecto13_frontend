@@ -49,7 +49,7 @@ export default function Footer() {
 
       <Box borderTop="1px" borderColor="gray.700" mt={10} pt={4} textAlign="center">
         <Text fontSize="sm" color="gray.500">
-          © 2025 Tutigruas. Todos los derechos reservados.
+          © 2025 Tutigruas por Sara Fontdevila. Todos los derechos reservados.
         </Text>
       </Box>
     </Box>

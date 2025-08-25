@@ -130,11 +130,11 @@ export default function Register() {
               _focus={{ borderColor: "brand.400", boxShadow: "0 0 0 1px #f97316" }}
               {...register("password", {
                 required: "El password es obligatorio",
-                pattern: {
+                /*pattern: {
                   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                   message:
                     "El password debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo especial",
-                },
+                },*/
               })}
             />
           </FormControl>
