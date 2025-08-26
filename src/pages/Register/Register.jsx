@@ -7,6 +7,7 @@ import {
   Button,
   useToast,
   Container,
+  Text
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 
@@ -21,6 +22,7 @@ export default function Register() {
 
   const onSubmit = async (data) => {
     try {
+      console.log("Datos enviados:", data);
       const response = await fetch("http://localhost:3000/api/v1/usuarios/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -29,7 +31,7 @@ export default function Register() {
 
       const result = await response.json();
 
-      if (!response.ok) throw new Error(result.message || "Error en login");
+      if (!response.ok) throw new Error(result.message || "Error en registro");
 
       localStorage.setItem("token", result.token);
       
@@ -70,12 +72,12 @@ export default function Register() {
           Registro
         </Heading>
         <Box as="form" onSubmit={handleSubmit(onSubmit)}>
-          <FormControl isInvalid={errors.name} mb={6}>
-            <FormLabel htmlFor="name" color="section.darkText" fontSize="lg">
+          <FormControl isInvalid={errors.nombre} mb={6}>
+            <FormLabel htmlFor="nombre" color="section.darkText" fontSize="lg">
               Nombre
             </FormLabel>
             <Input
-              id="name"
+              id="nombre"
               placeholder="Tu nombre"
               size="lg"
               bg="brand.900"
@@ -84,8 +86,13 @@ export default function Register() {
               _placeholder={{ color: "brand.200" }}
               _hover={{ borderColor: "brand.600" }}
               _focus={{ borderColor: "brand.400", boxShadow: "0 0 0 1px #f97316" }}
-              {...register("name", { required: "El nombre es obligatorio" })}
+              {...register("nombre", { required: "El nombre es obligatorio" })}
             />
+            {errors.nombre && (
+              <Text color="red.400" fontSize="sm" mt={2}>
+                {errors.nombre.message}
+              </Text>
+            )}
           </FormControl>
 
           <FormControl isInvalid={errors.email} mb={6}>
@@ -111,6 +118,11 @@ export default function Register() {
                 },
               })}
             />
+            {errors.email && (
+              <Text color="red.400" fontSize="sm" mt={2}>
+                {errors.email.message}
+              </Text>
+            )}
           </FormControl>
 
           <FormControl isInvalid={errors.password} mb={8}>
@@ -137,6 +149,11 @@ export default function Register() {
                 },*/
               })}
             />
+            {errors.password && (
+              <Text color="red.400" fontSize="sm" mt={2}>
+                {errors.password.message}
+              </Text>
+            )}
           </FormControl>
 
           <Button
