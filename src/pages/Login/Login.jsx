@@ -6,10 +6,11 @@ import {
   Input,
   Button,
   useToast,
-  Container,
+  Center,
   Text
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 
 export default function Login() {
   const {
@@ -19,6 +20,15 @@ export default function Login() {
     reset,
   } = useForm();
   const toast = useToast();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    } 
+  }, [])
 
   const onSubmit = async (data) => {
     try {
@@ -33,6 +43,8 @@ export default function Login() {
       if (!response.ok) throw new Error(result.message || "Error en login");
 
       localStorage.setItem("token", result.token);
+      setIsLoggedIn(true)
+      window.location.href = "/"
 
       toast({
         title: 'Usuario logueado',
@@ -55,6 +67,31 @@ export default function Login() {
       });
     }
   };
+
+  if (isLoggedIn) {
+    return (
+      <Center minH="100vh" bg="section.dark" p={4}>
+        <Box
+          p={12}
+          maxW={{ base: "95%", md: "600px", lg: "700px" }}
+          w="full"
+          borderWidth="2px"
+          borderColor="brand.800"
+          borderRadius="xl"
+          bg="section.dark"
+          boxShadow="2xl"
+          textAlign="center"
+        >
+          <Heading as="h1" size="xl" mb={4} color="section.darkText">
+            ¡Ya estás logueado!
+          </Heading>
+          <Text fontSize="lg" color="section.darkText">
+            Puedes explorar el sitio o cerrar sesión desde el botón de arriba.
+          </Text>
+        </Box>
+      </Center>
+    );
+  }
 
   return (
     <Box minH="100vh" bg="section.dark" display="flex" alignItems="center" justifyContent="center" p={4}>

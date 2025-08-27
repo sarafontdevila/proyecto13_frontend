@@ -1,6 +1,8 @@
-import { Box, Image, Text, Button, VStack, HStack, Badge, Flex } from "@chakra-ui/react"
+import { Box, Image, Text, Button, VStack, HStack,  Flex ,Modal,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalBody,useDisclosure,} from "@chakra-ui/react"
+import FormularioVenta from "../FormularioVenta/FormularioVenta.jsx";
 
 const ProductoCard = ({
+  _id,
   marca,
   modelo,
   tipo,
@@ -9,10 +11,9 @@ const ProductoCard = ({
   estado,
   precioVenta,
   imagen,
-  onComprar,
 }) => {
-
-  const enStock = estado === "Disponible" || estado === "En Stock"
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  
 
   const formatearPrecio = (precio) => {
     return new Intl.NumberFormat("es-ES").format(precio)
@@ -39,8 +40,11 @@ const ProductoCard = ({
         boxShadow: "0 8px 25px rgba(245, 101, 0, 0.15)",
         borderColor: "brand.300"
       }}
-      maxW="400px"
+      w="350px"
       mx="auto"
+      h= "480px"
+      display= "flex"
+      flexDirection= "column"
     >
       <Box position="relative">
         <Image
@@ -51,27 +55,11 @@ const ProductoCard = ({
           objectFit="cover"
         />
 
-        {enStock && (
-          <Badge
-            position="absolute"
-            top="12px"
-            left="12px"
-            bg="brand.500"
-            color="white"
-            px="8px"
-            py="4px"
-            borderRadius="6px"
-            fontSize="sm"
-            fontWeight="600"
-          >
-            En Stock
-          </Badge>
-        )}
       </Box>
-
       <VStack align="stretch" p="20px" spacing="16px">
         <VStack align="stretch" spacing="4px">
-          <Text fontSize="xl" fontWeight="700" color="sectionText" lineHeight="1.2">
+          <Text fontSize="xl" fontWeight="700" color="sectionText" lineHeight="1.2"
+          >
             {marca} {modelo}
           </Text>
           <Text fontSize="md" color="sectionText" opacity={0.7} fontWeight="500">
@@ -88,7 +76,7 @@ const ProductoCard = ({
               Estado: {estado}
             </Text>
           </HStack>
-        </VStack>
+      </VStack>
 
         <Flex justify="space-between" align="center">
           <Text fontSize="2xl" fontWeight="700" color="brand.500">
@@ -115,10 +103,24 @@ const ProductoCard = ({
           _active={{
             bg: "buttonSecondaryActive",
           }}
-          onClick={onComprar}
+          onClick={onOpen}
         >
           Comprar
         </Button>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Comprar {marca} {modelo}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={6}>
+              <FormularioVenta
+                productoId={_id}
+                onExito={onClose} 
+              />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+        
       </VStack>
     </Box>
   )

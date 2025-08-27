@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react"
 import { Icon } from "@chakra-ui/react"
 import { GiHamburgerMenu } from "react-icons/gi"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
 
 const Logo = () => (
   <Link to="/">
@@ -57,11 +58,34 @@ const NavLink = ({ children, to, isActive }) => (
 export default function Header() {
   const { onOpen } = useDisclosure()
   const location = useLocation()
+  const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+
+  useEffect(() => {
+    const checkLogin = () => {
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
+    };
+    checkLogin();
+
+    window.addEventListener("storage", checkLogin);
+    return () => {
+      window.removeEventListener("storage", checkLogin);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   const navItems = [
     { label: "Inicio", path: "/" },
     { label: "Camiones en Stock", path: "/stock" },
     { label: "Servicios", path: "/servicios" },
+    { label: "Mi Espacio", path: "/miespacio" },
     { label: "Contacto", path: "/contacto" },
   ]
 
@@ -94,27 +118,41 @@ export default function Header() {
           </HStack>
 
           <HStack gap={3} display={{ base: "none", lg: "flex" }}>
-            <Link to="/login">
-            <Button
-              variant="outline"
-              borderColor="section.darkText" 
-              color="section.darkText" 
-              _hover={{ bg: "section.darkText", color: "section.dark" }} 
-              size="sm"
-            >
-              Login
-            </Button>
-            </Link>
-            <Link to="/register">
-            <Button
-              bg="brand.500" 
-              _hover={{ bg: "brand.600" }} 
-              color="section.darkText" 
-              size="sm"
-            >
-              Registro
-            </Button>
-            </Link>
+            {isLoggedIn ? (
+              <Button
+          
+                color="section.lightText"
+                _hover={{ bg: "brand.600" }}
+                size="sm"
+                onClick={handleLogout}
+              >
+                Cerrar Sesión
+              </Button>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button
+                    variant="outline"
+                    borderColor="section.darkText"
+                    color="section.darkText"
+                    _hover={{ bg: "section.darkText", color: "section.dark" }}
+                    size="sm"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button
+                    bg="brand.500"
+                    _hover={{ bg: "brand.600" }}
+                    color="section.darkText"
+                    size="sm"
+                  >
+                    Registro
+                  </Button>
+                </Link>
+              </>
+            )}
           </HStack>
 
           <IconButton

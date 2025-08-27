@@ -10,8 +10,11 @@ import {
   Text
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -32,18 +35,17 @@ export default function Register() {
       const result = await response.json();
 
       if (!response.ok) throw new Error(result.message || "Error en registro");
-
-      localStorage.setItem("token", result.token);
       
       toast({
         title: 'Usuario registrado',
-        description: 'Te has registrado correctamente',
+        description: 'Te has registrado correctamente y debes iniciar sesión',
         status: 'success',
         duration: 5000,
         isClosable: true,
       });
 
       reset();
+      navigate('/login')
 
     } catch (error) {
       console.error('Error al registrarse:', error);

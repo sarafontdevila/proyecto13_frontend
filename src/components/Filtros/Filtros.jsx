@@ -12,8 +12,10 @@ const Filtros = () => {
         value={filtros.tipo}
         onChange={(e) => handleFiltroChange(e.target.name, e.target.value)}
       >
-        <option value="Grúa móvil">Grúa móvil</option>
-        <option value="Grúa torre">Grúa torre</option>
+        <option value="Grúa articulada">Grúa articulada</option>
+        <option value="Grúa hidráulica">Grúa hidráulica</option>
+        <option value="Grúa sobre camión">Grúa sobre camión</option>
+        <option value="Grúa telescópica">Grúa telescópica</option>
       </Select>
 
       <Select
@@ -22,9 +24,26 @@ const Filtros = () => {
         value={filtros.marca}
         onChange={(e) => handleFiltroChange(e.target.name, e.target.value)}
       >
-        <option value="Grove">Grove</option>
-        <option value="Fassi">Fassi</option>
-        <option value="Liebherr">Liebherr</option>
+            <option value="Dongfeng">Dongfeng</option>
+            <option value="Effer">Effer</option>
+            <option value="Fassi">Fassi</option>
+            <option value="FAW">FAW</option>
+            <option value="Grove">Grove</option>
+            <option value="Hiab">Hiab</option>
+            <option value="Hino">Hino</option>
+            <option value="HMF">HMF</option>
+            <option value="Kobelco">Kobelco</option>
+            <option value="Liebherr">Liebherr</option>
+            <option value="Link-Belt">Link-Belt</option>
+            <option value="Manitex">Manitex</option>
+            <option value="National Crane">National Crane</option>
+            <option value="Palfinger">Palfinger</option>
+            <option value="PM">PM</option>
+            <option value="SANY">SANY</option>
+            <option value="Tadano">Tadano</option>
+            <option value="Terex">Terex</option>
+            <option value="XCMG">XCMG</option>
+            <option value="Zoomlion">Zoomlion</option>
       </Select>
 
       <Select
