@@ -65,7 +65,7 @@ export default function FormularioSection() {
       console.log("Solicitud de búsqueda:", data)
       toast({
         title: "Búsqueda enviada",
-        description: "Estamos buscando el camión ideal para ti.",
+        description: "Estamos buscando el camión ideal para ti, te contactamos en breve.",
         status: "info",
         duration: 4000,
         isClosable: true

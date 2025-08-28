@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react"
 import FormularioBase from "../FormularioBase/FormularioBase.jsx"
 import axios from "axios"
 
-export default function FormularioVenta({ productoId, onExito, onVentaCreada }) {
+export default function FormularioVenta({ productoId, onExito}) {
   const toast = useToast()
 
   const fields = [
@@ -24,7 +24,7 @@ export default function FormularioVenta({ productoId, onExito, onVentaCreada }) 
 
   const handleVenta = async (data, toast) => {
     try {
-      const response =await axios.post ("http://localhost:3000/api/v1/ventas/createVenta", {
+      await axios.post ("http://localhost:3000/api/v1/ventas", {
         producto: productoId,
         metodoPago: data.metodoPago,
         fechaEntrega: data.fechaEntrega || null,
@@ -43,7 +43,6 @@ export default function FormularioVenta({ productoId, onExito, onVentaCreada }) 
         duration: 5000,
         isClosable: true
       })
-      onVentaCreada?.(response.data.venta)
       onExito?.()
       
     } catch (error) {

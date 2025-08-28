@@ -11,7 +11,6 @@ const ProductoCard = ({
   estado,
   precioVenta,
   imagen,
-  onVentaCreada,
   vendido=false,
   children,
 }) => {
@@ -123,12 +122,6 @@ const ProductoCard = ({
                   <FormularioVenta
                     productoId={_id}
                     onExito={onClose}
-                    onVentaCreada={(venta) =>
-                      onVentaCreada({
-                        ...venta,
-                        producto: { _id, marca, modelo, tipo, anyoFabricacion, kilometraje, estado, precioVenta, imagen }
-                      })
-                    }
                   />
                 </ModalBody>
               </ModalContent>
