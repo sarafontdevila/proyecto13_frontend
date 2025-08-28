@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react"
 import FormularioBase from "../FormularioBase/FormularioBase.jsx"
 import axios from "axios"
 
-export default function FormularioVenta({ productoId, onExito }) {
+export default function FormularioVenta({ productoId, onExito, onVentaCreada }) {
   const toast = useToast()
 
   const fields = [
@@ -24,7 +24,7 @@ export default function FormularioVenta({ productoId, onExito }) {
 
   const handleVenta = async (data, toast) => {
     try {
-      await axios.post ("http://localhost:3000/api/v1/ventas/createVenta", {
+      const response =await axios.post ("http://localhost:3000/api/v1/ventas/createVenta", {
         producto: productoId,
         metodoPago: data.metodoPago,
         fechaEntrega: data.fechaEntrega || null,
@@ -37,19 +37,21 @@ export default function FormularioVenta({ productoId, onExito }) {
     );
 
       toast({
-        title: "Venta creada",
-        description: "La venta se ha creado correctamente",
+        title: "!Compra realizada!",
+        description: "La compra se ha creado correctamente. Ve a 'Mi espacio' para verla",
         status: "success",
         duration: 5000,
         isClosable: true
       })
+      onVentaCreada?.(response.data.venta)
       onExito?.()
       
     } catch (error) {
       console.error("Error al crear la venta:", error)
+
       toast({
-        title: "Error",
-        description: "No se pudo crear la venta.",
+        title: "Error en la compra",
+        description: "No se pudo crear la compra.",
         status: "error",
         duration: 5000,
         isClosable: true
@@ -61,7 +63,7 @@ export default function FormularioVenta({ productoId, onExito }) {
 return (
   <FormularioBase
     fields={fields}
-    submitText= "Comprar"
+    submitText= "Confirmar Compra"
     onSubmit={(data) => handleVenta(data, toast)}
     maxW="100%"
     mx="auto"

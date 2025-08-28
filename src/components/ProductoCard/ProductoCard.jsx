@@ -11,10 +11,12 @@ const ProductoCard = ({
   estado,
   precioVenta,
   imagen,
+  onVentaCreada,
+  vendido=false,
+  children,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   
-
   const formatearPrecio = (precio) => {
     return new Intl.NumberFormat("es-ES").format(precio)
   }
@@ -90,40 +92,57 @@ const ProductoCard = ({
           </HStack>
         </Flex>
 
-        <Button
+        {vendido ? (
+          <Button
           bg="buttonSecondaryBg"
           color="buttonSecondaryText"
-          size="lg"
-          w="100%"
-          borderRadius="8px"
-          fontWeight="600"
-          _hover={{
-            bg: "buttonSecondaryHover",
-          }}
-          _active={{
-            bg: "buttonSecondaryActive",
-          }}
-          onClick={onOpen}
-        >
-          Comprar
-        </Button>
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Comprar {marca} {modelo}</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody pb={6}>
-              <FormularioVenta
-                productoId={_id}
-                onExito={onClose} 
-              />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-        
+          >
+            ¡Comprado!
+          </Button>
+        ) : (
+          <>
+            <Button
+              bg="buttonSecondaryBg"
+              color="buttonSecondaryText"
+              size="lg"
+              w="100%"
+              borderRadius="8px"
+              fontWeight="600"
+              _hover={{ bg: "buttonSecondaryHover" }}
+              _active={{ bg: "buttonSecondaryActive" }}
+              onClick={onOpen}
+            >
+              Comprar
+            </Button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Comprar {marca} {modelo}</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                  <FormularioVenta
+                    productoId={_id}
+                    onExito={onClose}
+                    onVentaCreada={(venta) =>
+                      onVentaCreada({
+                        ...venta,
+                        producto: { _id, marca, modelo, tipo, anyoFabricacion, kilometraje, estado, precioVenta, imagen }
+                      })
+                    }
+                  />
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+          </>
+        )}
+
+        {children ? (
+          <Box pt={3} borderTop="1px solid" borderColor="brand.100">
+            {children}
+          </Box>
+        ) : null}
       </VStack>
     </Box>
-  )
-}
-
-export default ProductoCard
+  );
+};
+export default ProductoCard;

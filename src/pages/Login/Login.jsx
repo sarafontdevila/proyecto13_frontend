@@ -43,6 +43,8 @@ export default function Login() {
       if (!response.ok) throw new Error(result.message || "Error en login");
 
       localStorage.setItem("token", result.token);
+      localStorage.setItem('user', JSON.stringify(result.user));
+      
       setIsLoggedIn(true)
       window.location.href = "/"
 
