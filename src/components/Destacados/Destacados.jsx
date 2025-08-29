@@ -10,7 +10,6 @@ const Destacados = () => {
   const handleComprar = (producto) => {
     console.log(`Ver detalles de: ${producto.marca} ${producto.modelo}`)
   }
-
   if (loading) {
     return <Loading />
   }

@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect,useCallback} from 'react';
 import axios from 'axios';
 import { ProductoContext } from './ProductoContext';
 
@@ -6,6 +6,7 @@ export const ProductoProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const [filtros, setFiltros] = useState({ tipo: '', marca: '', precio: '' });
   const [total, setTotal] = useState (0)
 
@@ -13,9 +14,10 @@ export const ProductoProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1)
   const limit = 6 
 
-  useEffect(() => {
-    const fetchAllProductos = async () => {
+  
+    const fetchAllProductos = useCallback(async () => {
       setLoading(true);
+      setError(null);
       try {
         let precioMin = '';
         let precioMax = '';
@@ -44,9 +46,9 @@ export const ProductoProvider = ({ children }) => {
       } finally {
         setLoading(false);
       }
-    };
-    fetchAllProductos();
   }, [filtros, page]);
+
+  useEffect(() => { fetchAllProductos(); }, [fetchAllProductos]);
 
   const handleFiltroChange = (name, value) => {
     setPage(1)
@@ -60,22 +62,52 @@ export const ProductoProvider = ({ children }) => {
     setPage(1)
     setFiltros({ tipo: '', marca: '', precio: '' });
   };
-
-  const contextValue = {
-    productos,
-    loading,
-    error,
-    filtros,
-    handleFiltroChange,
-    handleFiltroReset,
-    page,
-    setPage,
-    totalPages,
-    total,
+  const createProducto = async (formData) => {
+    await axios.post('http://localhost:3000/api/v1/productos', formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    await fetchAllProductos();
   };
+  const updateProducto = async (id, payload, isMultipart = false) => {
+    await axios.put(`http://localhost:3000/api/v1/productos/${id}`, payload, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        ...(isMultipart ? { "Content-Type": "multipart/form-data" } : {}),
+      },
+    });
+    await fetchAllProductos();
+  };
+    const deleteProducto = async (id) => {
+      await axios.delete(`http://localhost:3000/api/v1/productos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      await fetchAllProductos();
+    };
+
+    const contextValue = {
+      productos,
+      loading,
+      error,
+      filtros,
+      handleFiltroChange,
+      handleFiltroReset,
+      page,
+      setPage,
+      totalPages,
+      total,
+      refetch: fetchAllProductos,
+      createProducto,
+      updateProducto,
+      deleteProducto,
+    };
 
   return (
-    <ProductoContext.Provider value={contextValue}>
+    <ProductoContext.Provider value={ contextValue }>
       {children}
     </ProductoContext.Provider>
   );

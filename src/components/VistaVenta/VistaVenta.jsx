@@ -1,19 +1,17 @@
-import { Box, Heading, Table, Thead, Tbody, Tr, Th, Td, Text, Center, Button, Flex, Container, ButtonGroup, useDisclosure,Modal,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalBody, } from "@chakra-ui/react";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { Box, Heading, Table, Thead, Tbody, Tr, Th, Td, Text, Center, Button, Flex, Container, useDisclosure,Modal,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalBody, } from "@chakra-ui/react";
+import { AddIcon} from "@chakra-ui/icons";
 import CrearProducto from "../CrearProducto/CrearProducto.jsx";
-import BorrarProducto from "../BorrarProducto/BorrarProducto.jsx";
+
 
 export default function VistaVenta({ ventas =[] }) {
   const crear = useDisclosure()
-  const borrar = useDisclosure()
 
   return (
     <Container maxW="7xl" w="full">
       <Flex justify="space-between" align="center" mb={8} mt={4}>
         <Heading as="h1" size="xl" color="section.lightText" fontWeight="bold">
-          Gestión de Productos
+          Gestión de Productos y Ventas
         </Heading>
-          <ButtonGroup spacing={4}>
           <Button
             leftIcon={<AddIcon />}
             bg="brand.500"
@@ -28,20 +26,6 @@ export default function VistaVenta({ ventas =[] }) {
           >
             Crear Producto
           </Button>
-          <Button
-            leftIcon={<MinusIcon />}
-            variant="outline"
-            borderColor="brand.500"
-            color="brand.600"
-            _hover={{ bg: "brand.50" }}
-            px={6}
-            py={3}
-            borderRadius="md"
-            onClick={borrar.onOpen}
-          >
-            Borrar Producto
-          </Button>
-        </ButtonGroup>
       </Flex>
 
       {ventas.length === 0 ? (
@@ -91,7 +75,6 @@ export default function VistaVenta({ ventas =[] }) {
       )}
       
       <CrearProducto isOpen={crear.isOpen} onClose={crear.onClose} />
-      <BorrarProducto isOpen={borrar.isOpen} onClose={borrar.onClose} />
     </Container>
   );
 }

@@ -16,7 +16,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx'
 const App = () => {
   return (
     <>
-      <Header />
+      <Header />  
       <ProductoProvider>
         <Routes>
           <Route path="/" element={<Inicio />} />

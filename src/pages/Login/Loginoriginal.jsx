@@ -7,30 +7,59 @@ import {
   Button,
   useToast,
   Center,
-  Text,
+  Text
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../customHook/useAuth'; 
+import { useState, useEffect } from 'react';
+
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm();
   const toast = useToast();
-  const nav = useNavigate();
-  const { user,login, loading } = useAuth()
+  
 
-  const onSubmit = async ({ email, password }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    } 
+  }, [])
+
+  const onSubmit = async (data) => {
     try {
-      await login(email, password); 
+      const response = await fetch("http://localhost:3000/api/v1/usuarios/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) throw new Error(result.message || "Error en login");
+
+      localStorage.setItem("token", result.token);
+      localStorage.setItem('user', JSON.stringify(result.user));
+      
+      setIsLoggedIn(true)
+      window.location.href = "/"
+
       toast({
         title: 'Usuario logueado',
         description: 'Te has logueado correctamente',
         status: 'success',
-        duration: 4000,
+        duration: 5000,
         isClosable: true,
       });
+
       reset();
-      nav("/", { replace: true });
+
     } catch (error) {
       console.error('Error al loguear:', error);
       toast({
@@ -43,15 +72,7 @@ export default function Login() {
     }
   };
 
-  if (loading) {
-    return (
-      <Center minH="100vh" p={4}>
-        <Text>Cargando...</Text>
-      </Center>
-    );
-  }
-
-  if (user) {
+  if (isLoggedIn) {
     return (
       <Center minH="100vh" bg="section.dark" p={4}>
         <Box
@@ -111,7 +132,7 @@ export default function Login() {
               {...register("email", {
                 required: "El email es obligatorio",
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: "Email inválido",
                 },
               })}
@@ -140,6 +161,11 @@ export default function Login() {
               _focus={{ borderColor: "brand.400", boxShadow: "0 0 0 1px #f97316" }}
               {...register("password", {
                 required: "El password es obligatorio",
+                /*pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  message:
+                    "El password debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo especial",
+                },*/
               })}
             />
             {errors.password && (
@@ -166,6 +192,6 @@ export default function Login() {
         </Box>
       </Box>
     </Box>
-  );
+  )
 }
 

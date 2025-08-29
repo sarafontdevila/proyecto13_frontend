@@ -27,23 +27,19 @@ import {
   Modal, ModalOverlay, ModalContent, ModalHeader,
   ModalCloseButton, ModalBody, useToast
 } from "@chakra-ui/react";
-import axios from "axios";
+import {useProductos} from "../../customHook/useProductos";
 import FormularioProducto from "../FormularioProducto/FormularioProducto.jsx";
 
 export default function CrearProducto({ isOpen, onClose }) {
   const toast = useToast();
+  const { createProducto} = useProductos()
 
   const handleCrear = async (data) => {
     try {
       const formData = new FormData();
       Object.keys(data).forEach((key) => formData.append(key, data[key]));
 
-      await axios.post("http://localhost:3000/api/v1/productos", formData, {
-        headers: { 
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}` 
-        },
-      });
+      await createProducto(formData)
 
       toast({
         title: "Producto creado",
@@ -63,6 +59,7 @@ export default function CrearProducto({ isOpen, onClose }) {
         duration: 5000,
         isClosable: true,
       });
+      onClose?.(false);
     }
   };
 

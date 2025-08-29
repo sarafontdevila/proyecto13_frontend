@@ -11,7 +11,7 @@ import {
 import { Icon } from "@chakra-ui/react"
 import { GiHamburgerMenu } from "react-icons/gi"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react";
+import { useAuth } from "../../customHook/useAuth";
 
 const Logo = () => (
   <Link to="/">
@@ -60,24 +60,12 @@ export default function Header() {
   const location = useLocation()
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const { user, logout, loading } = useAuth();
+  const isLoggedIn = !!user && !loading
 
-  useEffect(() => {
-    const checkLogin = () => {
-      const token = localStorage.getItem("token");
-      setIsLoggedIn(!!token);
-    };
-    checkLogin();
-
-    window.addEventListener("storage", checkLogin);
-    return () => {
-      window.removeEventListener("storage", checkLogin);
-    };
-  }, []);
-
+  
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
+    logout();
     navigate("/");
   };
 
