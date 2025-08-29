@@ -1,7 +1,17 @@
 import { Box, Container, Heading, Text, Button, Image, VStack, Flex } from "@chakra-ui/react";
 import { Link } from "react-router-dom"
 
+
 export default function HeroSection() {
+  const handleScroll = () => {
+    const formularioSection = document.getElementById('FormularioSection');
+    if (formularioSection) {
+      formularioSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
   return (
     <Box as="section" position="relative" bg="section.dark" color="section.darkText">
       <Container maxW="7xl" py={{ base: 24, lg: 32 }} position="relative" zIndex={1}>
@@ -32,7 +42,7 @@ export default function HeroSection() {
           </Text>
 
           <Flex direction={{ base: "column", sm: "row" }} gap={4}>
-          
+          <Link to="/stock">
             <Button
               bg="buttonBg"
               _hover={{ bg: "brand.700" }}
@@ -44,6 +54,7 @@ export default function HeroSection() {
             >
               Ver Camiones Disponibles
             </Button>
+            </Link>
 
             <Button
               variant="outline"
@@ -54,9 +65,12 @@ export default function HeroSection() {
               py={6}
               fontSize="lg"
               borderRadius="md"
+              onClick={handleScroll}
             >
               📍 Te lo Traemos a España
             </Button>
+           
+           
           </Flex>
         </VStack>
       </Container>

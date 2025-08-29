@@ -12,6 +12,7 @@ import { Icon } from "@chakra-ui/react"
 import { GiHamburgerMenu } from "react-icons/gi"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "../../customHook/useAuth";
+import MobileMenu from "../MobileMenu/MobileMenu.jsx"
 
 const Logo = () => (
   <Link to="/">
@@ -56,7 +57,7 @@ const NavLink = ({ children, to, isActive }) => (
 )
 
 export default function Header() {
-  const { onOpen } = useDisclosure()
+  const { isOpen, onClose, onOpen } = useDisclosure()
   const location = useLocation()
   const navigate = useNavigate();
 
@@ -148,12 +149,14 @@ export default function Header() {
             icon={<Icon as={GiHamburgerMenu} />}
             variant="ghost"
             color="section.darkText" 
+            text= "Menu"
             _hover={{ bg: "gray.800" }}
             display={{ base: "flex", lg: "none" }}
             onClick={onOpen}
           />
         </Flex>
       </Container>
+      <MobileMenu isOpen={isOpen} onClose={onClose} navItems={navItems} />
     </Box>
   )
 }

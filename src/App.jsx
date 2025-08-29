@@ -9,9 +9,6 @@ import Contacto from './pages/Contacto/Contacto.jsx'
 import MiEspacio from './pages/MiEspacio/MiEspacio.jsx'
 import Login from './pages/Login/Login.jsx'
 import Register from './pages/Register/Register.jsx'
-import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx'
-
-
 
 const App = () => {
   return (
@@ -22,13 +19,7 @@ const App = () => {
           <Route path="/" element={<Inicio />} />
           <Route path="/stock" element={<Stock />} />
           <Route path="/servicios" element={<Servicios />} />
-          <Route 
-            path="/miespacio" element={
-              <PrivateRoute>
-                <MiEspacio/>
-              </PrivateRoute>
-            } 
-          />
+          <Route path="/miespacio" element={<MiEspacio/> } />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register/>} />

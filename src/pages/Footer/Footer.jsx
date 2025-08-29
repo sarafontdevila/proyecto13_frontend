@@ -1,6 +1,7 @@
 import { Box, Flex, Text, Link, Stack, Icon } from "@chakra-ui/react";
 import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
 import { MdLocationOn } from "react-icons/md";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -15,7 +16,7 @@ export default function Footer() {
       >
         <Stack spacing={3} maxW="300px">
           <Text fontSize="lg" fontWeight="bold">
-            Camiones Grúa España
+            Tutigruas Camiones Grúa
           </Text>
           <Text fontSize="sm">
             Importación, venta y servicios especializados.
@@ -26,9 +27,9 @@ export default function Footer() {
           <Text fontSize="lg" fontWeight="bold">
             Servicios
           </Text>
-          <Link fontSize="sm">Venta de camiones grúa</Link>
-          <Link fontSize="sm">Importación desde Europa</Link>
-          <Link fontSize="sm">Servicios personalizados</Link>
+          <Link as={ RouterLink } to="/stock" fontSize="sm">Venta de camiones grúa</Link>
+          <Link as={ RouterLink }  to="/contacto" fontSize="sm">Importación desde Europa</Link>
+          <Link as={ RouterLink } to="/servicios" fontSize="sm">Servicios personalizados</Link>
         </Stack>
 
         <Stack spacing={2}>

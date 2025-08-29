@@ -37,9 +37,14 @@ export default function CrearProducto({ isOpen, onClose }) {
   const handleCrear = async (data) => {
     try {
       const formData = new FormData();
-      Object.keys(data).forEach((key) => formData.append(key, data[key]));
-
-      await createProducto(formData)
+      Object.keys(data).forEach((key) => {
+        const value = data[key];
+        if (value !== null && value !== undefined && value !== '') {
+          console.log(`➕ Agregando: ${key} =`, value);
+          formData.append(key, value);
+      }
+    });
+    await createProducto(formData); 
 
       toast({
         title: "Producto creado",
@@ -49,9 +54,10 @@ export default function CrearProducto({ isOpen, onClose }) {
         isClosable: true,
       });
 
-      onClose();
+      onClose?.(true);
     } catch (error) {
-      console.error("Error al crear producto:", error);
+      console.error("Error al crear producto:", error?.response?.status,
+        error?.response?.data);
       toast({
         title: "Error",
         description: "No se pudo crear el producto.",

@@ -23,8 +23,8 @@ export default function Login() {
     try {
       await login(email, password); 
       toast({
-        title: 'Usuario logueado',
-        description: 'Te has logueado correctamente',
+        title: 'Logueado',
+        description: 'Has iniciado la sesión correctamente',
         status: 'success',
         duration: 4000,
         isClosable: true,

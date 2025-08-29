@@ -83,7 +83,7 @@ export default function FormularioSection() {
   }
 
   return (
-    <Container maxW="7xl" py={12}>
+    <Container id="FormularioSection" maxW="7xl" py={12}>
       <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={8}>
         <Box bg="sectionBg" p={8} borderRadius="2xl" boxShadow="lg">
           <VStack spacing={6} align="stretch">
