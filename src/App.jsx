@@ -10,7 +10,10 @@ import MiEspacio from './pages/MiEspacio/MiEspacio.jsx'
 import Login from './pages/Login/Login.jsx'
 import Register from './pages/Register/Register.jsx'
 
+
 const App = () => {
+  
+  
   return (
     <>
       <Header />  
@@ -19,7 +22,7 @@ const App = () => {
           <Route path="/" element={<Inicio />} />
           <Route path="/stock" element={<Stock />} />
           <Route path="/servicios" element={<Servicios />} />
-          <Route path="/miespacio" element={<MiEspacio/> } />
+          <Route path="/miespacio" element={<MiEspacio /> }/>
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register/>} />

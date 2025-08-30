@@ -1,7 +1,11 @@
-import { Box, Image, Text, Button, VStack, HStack,  Flex ,Modal,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalBody,useDisclosure,} from "@chakra-ui/react"
-import FormularioVenta from "../FormularioVenta/FormularioVenta.jsx";
+import { Box, Image, Text, Button, VStack, HStack,  Flex } from "@chakra-ui/react"
+import BotonComprar from "../BotonComprar/BotonComprar.jsx"
+import BotonBorrar from "../BotonBorrar/BotonBorrar.jsx"
+import BotonEditar from "../BotonEditar/BotonEditar.jsx"
 
-const ProductoCard = ({
+import { useAuth } from "../../customHook/useAuth.js"
+
+export default function ProductoCard ({
   _id,
   marca,
   modelo,
@@ -13,9 +17,12 @@ const ProductoCard = ({
   imagen,
   vendido=false,
   children,
-}) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  
+}) {
+  const { user } = useAuth()
+  const isAdmin = user?.rol === "admin"
+  console.log("Usuario:", user) 
+  console.log("Es admin:", isAdmin) 
+
   const formatearPrecio = (precio) => {
     return new Intl.NumberFormat("es-ES").format(precio)
   }
@@ -46,7 +53,17 @@ const ProductoCard = ({
       h= "480px"
       display= "flex"
       flexDirection= "column"
+      position= "relative"
     >
+        {isAdmin &&(
+        <BotonBorrar
+          productoId={_id}
+          marca={marca}
+          modelo={modelo}
+          anyoFabricacion={anyoFabricacion}
+        />
+        )}
+
       <Box position="relative">
         <Image
           src={imagen || `/placeholder.svg?height=240&width=400&query=${marca} ${modelo} truck`}
@@ -90,43 +107,10 @@ const ProductoCard = ({
             </Text>
           </HStack>
         </Flex>
-
-        {vendido ? (
-          <Button
-          bg="buttonSecondaryBg"
-          color="buttonSecondaryText"
-          >
-            ¡Comprado!
-          </Button>
+        {isAdmin ? (
+          <BotonEditar productoId={_id} />
         ) : (
-          <>
-            <Button
-              bg="buttonSecondaryBg"
-              color="buttonSecondaryText"
-              size="lg"
-              w="100%"
-              borderRadius="8px"
-              fontWeight="600"
-              _hover={{ bg: "buttonSecondaryHover" }}
-              _active={{ bg: "buttonSecondaryActive" }}
-              onClick={onOpen}
-            >
-              Comprar
-            </Button>
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Comprar {marca} {modelo}</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody pb={6}>
-                  <FormularioVenta
-                    productoId={_id}
-                    onExito={onClose}
-                  />
-                </ModalBody>
-              </ModalContent>
-            </Modal>
-          </>
+          <BotonComprar productoId={_id} vendido={vendido} />
         )}
 
         {children ? (
@@ -138,4 +122,3 @@ const ProductoCard = ({
     </Box>
   );
 };
-export default ProductoCard;

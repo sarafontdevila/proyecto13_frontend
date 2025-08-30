@@ -1,4 +1,4 @@
-import {
+/*import {
   Modal,
   ModalOverlay,
   ModalContent,
@@ -59,7 +59,6 @@ export default function BorrarProducto({ isOpen, onClose }) {
         return;
       }
 
-      // 3) Borrar por id
       const id = matches[0]._id;
       await axios.delete(`http://localhost:3000/api/v1/productos/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -107,4 +106,4 @@ export default function BorrarProducto({ isOpen, onClose }) {
       </ModalContent>
     </Modal>
   );
-}
+}*/
