@@ -35,7 +35,7 @@ export default function MiEspacio() {
   if (!user) {
     return (
       <Center minH="50vh">
-        <Text>No estás autenticado.</Text>
+        <Text>Debes iniciar sesión para acceder</Text>
       </Center>
     );
   }

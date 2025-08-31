@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import {
   Box,
   Container,
@@ -63,21 +64,25 @@ export default function Header() {
 
   const { user, logout, loading } = useAuth();
   const isLoggedIn = !!user && !loading
+  const isAdmin = user?.rol=== "admin"
 
-  
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
-  const navItems = [
+  const ItemsVisibles = useMemo(()=>([
     { label: "Inicio", path: "/" },
     { label: "Camiones en Stock", path: "/stock" },
     { label: "Servicios", path: "/servicios" },
-    { label: "Mi Espacio", path: "/miespacio" },
     { label: "Contacto", path: "/contacto" },
-  ]
+  ]), [])
 
+  const navItems = useMemo (() =>([
+    ...ItemsVisibles,
+    ...(isLoggedIn ? [ { label: "Mi Espacio", path:"/miespacio"}]: [])
+  ]), [ItemsVisibles, isLoggedIn])
+  
   return (
     <Box
       as="header"
