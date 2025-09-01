@@ -1,28 +1,3 @@
-/*import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-} from "@chakra-ui/react";
-import FormularioProducto from "../FormularioProducto/FormularioProducto.jsx"
-
-export default function CrearProducto({isOpen, onClose}) {
-  return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
-      <ModalOverlay />
-      <ModalContent maxW="900px">
-        <ModalHeader>Crear Producto</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <FormularioProducto onExito={onClose} />
-        </ModalBody>
-      </ModalContent>
-    </Modal>
-  );
-}*/
-
 import {
   Modal, ModalOverlay, ModalContent, ModalHeader,
   ModalCloseButton, ModalBody, useToast
@@ -37,7 +12,15 @@ export default function CrearProducto({ isOpen, onClose }) {
   const handleCrear = async (data) => {
     try {
       const formData = new FormData();
+
+      const fileList = data.imagen
+      if (fileList?.[0] instanceof File) {
+        formData.append ("imagen", fileList [0])
+      }
+      
+      
       Object.keys(data).forEach((key) => {
+        if (key === "imagen") return;
         const value = data[key];
         if (value !== null && value !== undefined && value !== '') {
           console.log(`➕ Agregando: ${key} =`, value);

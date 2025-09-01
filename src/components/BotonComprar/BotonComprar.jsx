@@ -16,6 +16,7 @@ const BotonComprar = ({ productoId, marca, modelo, vendido = false }) => {
   const {user} = useAuth();
   const isAuth = user ? true : false;
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
 
   if (vendido) {
     return (
