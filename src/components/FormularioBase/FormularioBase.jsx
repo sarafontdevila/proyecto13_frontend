@@ -11,8 +11,8 @@ import {
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 
-export default function FormularioBase({ fields, submitText = "Enviar", onSubmit, toastHandler, ...props }) {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm()
+export default function FormularioBase({ fields, submitText = "Enviar", onSubmit, toastHandler, initialValues= {}, ...props }) {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm( { defaultValues:initialValues})
 
   const handleFormSubmit = async (data) => {
     if (toastHandler) {

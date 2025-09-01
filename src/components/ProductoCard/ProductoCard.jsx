@@ -14,6 +14,8 @@ export default function ProductoCard ({
   kilometraje,
   estado,
   precioVenta,
+  fechaAdquisicion,
+  vehiculo,
   imagen,
   vendido=false,
   children,
@@ -22,6 +24,20 @@ export default function ProductoCard ({
   const isAdmin = user?.rol === "admin"
   console.log("Usuario:", user) 
   console.log("Es admin:", isAdmin) 
+
+  const producto = {
+    _id,
+    vehiculo,
+    marca,
+    modelo,
+    tipo,
+    anyoFabricacion,
+    kilometraje,
+    estado,
+    precioVenta,
+    fechaAdquisicion,
+    imagen
+  };
 
   const formatearPrecio = (precio) => {
     return new Intl.NumberFormat("es-ES").format(precio)
@@ -108,7 +124,7 @@ export default function ProductoCard ({
           </HStack>
         </Flex>
         {isAdmin ? (
-          <BotonEditar productoId={_id} />
+          <BotonEditar producto={ producto } />
         ) : (
           <BotonComprar productoId={_id} vendido={vendido} />
         )}

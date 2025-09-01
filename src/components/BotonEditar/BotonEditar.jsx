@@ -9,7 +9,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import FormularioProducto from "../FormularioProducto/FormularioProducto.jsx";
 import { useProductos } from "../../customHook/useProductos.js";
 
-export default function BotonEditar( {productoId}){const { updateProducto } = useProductos();
+export default function BotonEditar( {producto}){const { updateProducto } = useProductos();
 const { isOpen, onOpen, onClose } = useDisclosure();
 const toast = useToast();
 
@@ -30,7 +30,7 @@ const handleSubmit = async (values) => {
       payload = form;
     }
 
-    await updateProducto(productoId, payload, !!hasFile);
+    await updateProducto(producto._id, payload, !!hasFile);
 
     toast({
       title: "Producto actualizado",
@@ -73,6 +73,7 @@ return (
           <FormularioProducto
             submitText="Guardar cambios"
             onSubmit={handleSubmit}
+            initialValues={producto}
           />
         </ModalBody>
       </ModalContent>
