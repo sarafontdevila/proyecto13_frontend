@@ -8,9 +8,9 @@ import {
   useToast,
   Container,
   Text
-} from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from "react-router-dom";
+} from '@chakra-ui/react'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -19,131 +19,159 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
-  } = useForm();
-  const toast = useToast();
+    reset
+  } = useForm()
+  const toast = useToast()
 
   const onSubmit = async (data) => {
     try {
-      console.log("Datos enviados:", data);
-      const response = await fetch("http://localhost:3000/api/v1/usuarios/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      console.log('Datos enviados:', data)
+      const response = await fetch(
+        'https://proyecto13-backend.vercel.app/api/v1/usuarios/register',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }
+      )
 
-      const result = await response.json();
+      const result = await response.json()
 
-      if (!response.ok) throw new Error(result.message || "Error en registro");
-      
+      if (!response.ok) throw new Error(result.message || 'Error en registro')
+
       toast({
         title: 'Usuario registrado',
         description: 'Te has registrado correctamente y debes iniciar sesión',
         status: 'success',
         duration: 5000,
-        isClosable: true,
-      });
+        isClosable: true
+      })
 
-      reset();
+      reset()
       navigate('/login')
-
     } catch (error) {
-      console.error('Error al registrarse:', error);
+      console.error('Error al registrarse:', error)
       toast({
         title: 'Error.',
         description: 'No pudimos registrarte. Inténtalo de nuevo.',
         status: 'error',
         duration: 5000,
-        isClosable: true,
-      });
+        isClosable: true
+      })
     }
-  };
+  }
   return (
-    <Box minH="100vh" bg="section.dark" display="flex" alignItems="center" justifyContent="center" p={4}>
+    <Box
+      minH='100vh'
+      bg='section.dark'
+      display='flex'
+      alignItems='center'
+      justifyContent='center'
+      p={4}
+    >
       <Box
         p={12}
-        maxW={{ base: "95%", md: "600px", lg: "700px" }}
-        w="full"
-        borderWidth="2px"
-        borderColor="brand.800"
-        borderRadius="xl"
-        bg="section.dark"
-        boxShadow="2xl"
+        maxW={{ base: '95%', md: '600px', lg: '700px' }}
+        w='full'
+        borderWidth='2px'
+        borderColor='brand.800'
+        borderRadius='xl'
+        bg='section.dark'
+        boxShadow='2xl'
       >
-        <Heading as="h1" size="xl" mb={8} textAlign="center" color="section.darkText">
+        <Heading
+          as='h1'
+          size='xl'
+          mb={8}
+          textAlign='center'
+          color='section.darkText'
+        >
           Registro
         </Heading>
-        <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+        <Box as='form' onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={errors.nombre} mb={6}>
-            <FormLabel htmlFor="nombre" color="section.darkText" fontSize="lg">
+            <FormLabel htmlFor='nombre' color='section.darkText' fontSize='lg'>
               Nombre
             </FormLabel>
             <Input
-              id="nombre"
-              placeholder="Tu nombre"
-              size="lg"
-              bg="brand.900"
-              borderColor="brand.700"
-              color="section.darkText"
-              _placeholder={{ color: "brand.200" }}
-              _hover={{ borderColor: "brand.600" }}
-              _focus={{ borderColor: "brand.400", boxShadow: "0 0 0 1px #f97316" }}
-              {...register("nombre", { required: "El nombre es obligatorio" })}
+              id='nombre'
+              placeholder='Tu nombre'
+              size='lg'
+              bg='brand.900'
+              borderColor='brand.700'
+              color='section.darkText'
+              _placeholder={{ color: 'brand.200' }}
+              _hover={{ borderColor: 'brand.600' }}
+              _focus={{
+                borderColor: 'brand.400',
+                boxShadow: '0 0 0 1px #f97316'
+              }}
+              {...register('nombre', { required: 'El nombre es obligatorio' })}
             />
             {errors.nombre && (
-              <Text color="red.400" fontSize="sm" mt={2}>
+              <Text color='red.400' fontSize='sm' mt={2}>
                 {errors.nombre.message}
               </Text>
             )}
           </FormControl>
 
           <FormControl isInvalid={errors.email} mb={6}>
-            <FormLabel htmlFor="email" color="section.darkText" fontSize="lg">
+            <FormLabel htmlFor='email' color='section.darkText' fontSize='lg'>
               Email
             </FormLabel>
             <Input
-              id="email"
-              type="email"
-              placeholder="tu@email.com"
-              size="lg"
-              bg="brand.900"
-              borderColor="brand.700"
-              color="section.darkText"
-              _placeholder={{ color: "brand.200" }}
-              _hover={{ borderColor: "brand.600" }}
-              _focus={{ borderColor: "brand.400", boxShadow: "0 0 0 1px #f97316" }}
-              {...register("email", {
-                required: "El email es obligatorio",
+              id='email'
+              type='email'
+              placeholder='tu@email.com'
+              size='lg'
+              bg='brand.900'
+              borderColor='brand.700'
+              color='section.darkText'
+              _placeholder={{ color: 'brand.200' }}
+              _hover={{ borderColor: 'brand.600' }}
+              _focus={{
+                borderColor: 'brand.400',
+                boxShadow: '0 0 0 1px #f97316'
+              }}
+              {...register('email', {
+                required: 'El email es obligatorio',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "Email inválido",
-                },
+                  message: 'Email inválido'
+                }
               })}
             />
             {errors.email && (
-              <Text color="red.400" fontSize="sm" mt={2}>
+              <Text color='red.400' fontSize='sm' mt={2}>
                 {errors.email.message}
               </Text>
             )}
           </FormControl>
 
           <FormControl isInvalid={errors.password} mb={8}>
-            <FormLabel htmlFor="password" color="section.darkText" fontSize="lg">
+            <FormLabel
+              htmlFor='password'
+              color='section.darkText'
+              fontSize='lg'
+            >
               Password
             </FormLabel>
             <Input
-              id="password"
-              type="password"
-              placeholder="*****"
-              size="lg"
-              bg="brand.900"
-              borderColor="brand.700"
-              color="section.darkText"
-              _placeholder={{ color: "brand.200" }}
-              _hover={{ borderColor: "brand.600" }}
-              _focus={{ borderColor: "brand.400", boxShadow: "0 0 0 1px #f97316" }}
-              {...register("password", {
-                required: "El password es obligatorio",
+              id='password'
+              type='password'
+              placeholder='*****'
+              size='lg'
+              bg='brand.900'
+              borderColor='brand.700'
+              color='section.darkText'
+              _placeholder={{ color: 'brand.200' }}
+              _hover={{ borderColor: 'brand.600' }}
+              _focus={{
+                borderColor: 'brand.400',
+                boxShadow: '0 0 0 1px #f97316'
+              }}
+              {...register('password', {
+                required: 'El password es obligatorio'
                 /*pattern: {
                   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                   message:
@@ -152,22 +180,22 @@ export default function Register() {
               })}
             />
             {errors.password && (
-              <Text color="red.400" fontSize="sm" mt={2}>
+              <Text color='red.400' fontSize='sm' mt={2}>
                 {errors.password.message}
               </Text>
             )}
           </FormControl>
 
           <Button
-            bg="buttonBg"
-            color="buttonText"
-            size="lg"
+            bg='buttonBg'
+            color='buttonText'
+            size='lg'
             isLoading={isSubmitting}
-            type="submit"
-            width="full"
-            _hover={{ bg: "brand.600" }}
-            _active={{ bg: "brand.700" }}
-            fontSize="lg"
+            type='submit'
+            width='full'
+            _hover={{ bg: 'brand.600' }}
+            _active={{ bg: 'brand.700' }}
+            fontSize='lg'
             py={6}
           >
             Entrar
@@ -176,5 +204,4 @@ export default function Register() {
       </Box>
     </Box>
   )
-
 }
