@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import axios from 'axios'
 import { ProductoContext } from './ProductoContext'
+import { api } from '../config/api.js'
 
 export const ProductoProvider = ({ children }) => {
   const [productos, setProductos] = useState([])
@@ -27,8 +27,9 @@ export const ProductoProvider = ({ children }) => {
         precioMax = max ?? ''
       }
 
-      const response = await axios.get(
-        'https://proyecto13-backend.vercel.app/api/v1/productos',
+      const response = await api.get(
+        /*'https://proyecto13-backend.vercel.app/api/v1/productos',*/
+        '/api/v1/productos',
         {
           params: {
             tipo: filtros.tipo,
@@ -69,9 +70,11 @@ export const ProductoProvider = ({ children }) => {
   }
 
   const createProducto = async (formData) => {
-    await axios.post(
-      'https://proyecto13-backend.vercel.app/api/v1/productos',
+    await api.post(
+      /*'https://proyecto13-backend.vercel.app/api/v1/productos',*/
+      '/api/v1/productos',
       formData,
+      
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -85,8 +88,10 @@ export const ProductoProvider = ({ children }) => {
     const isFormData =
       typeof FormData !== 'undefined' && payload instanceof FormData
 
-    await axios.put(
-      `https://proyecto13-backend.vercel.app/api/v1/productos/${id}`,
+    await api.put(
+      /*`https://proyecto13-backend.vercel.app/api/v1/productos/${id}`,*/
+      `/api/v1/productos/${id}`,
+      
       payload,
       {
         headers: {
@@ -99,8 +104,9 @@ export const ProductoProvider = ({ children }) => {
   }
 
   const deleteProducto = async (id) => {
-    await axios.delete(
-      `https://proyecto13-backend.vercel.app/api/v1/productos/${id}`,
+    await api.delete(
+      /*`https://proyecto13-backend.vercel.app/api/v1/productos/${id}`,*/
+      `/api/v1/productos/${id}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`

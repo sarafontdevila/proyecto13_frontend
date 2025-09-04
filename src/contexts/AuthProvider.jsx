@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { AuthContext } from './AuthContext'
+import { api } from '../config/api'
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -14,8 +14,9 @@ export const AuthProvider = ({ children }) => {
     }
     ;(async () => {
       try {
-        const { data } = await axios.get(
-          'https://proyecto13-backend.vercel.app/api/v1/users/me',
+        const { data } = await api.get(
+          /*'https://proyecto13-backend.vercel.app/api/v1/users/me',*/
+          '/api/v1/users/me',
           {
             headers: { Authorization: `Bearer ${token}` }
           }
@@ -32,8 +33,9 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (email, password) => {
-    const { data } = await axios.post(
-      'https://proyecto13-backend.vercel.app/api/v1/usuarios/login',
+    const { data } = await api.post(
+      /*'https://proyecto13-backend.vercel.app/api/v1/usuarios/login',*/
+      '/api/v1/usuarios/login',
       {
         email,
         password

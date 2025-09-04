@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { api } from '../../config/api.js'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ export default function Register() {
   } = useForm()
   const toast = useToast()
 
-  const onSubmit = async (data) => {
+  /*const onSubmit = async (data) => {
     try {
       console.log('Datos enviados:', data)
       const response = await fetch(
@@ -34,7 +35,6 @@ export default function Register() {
           body: JSON.stringify(data)
         }
       )
-
       const result = await response.json()
 
       if (!response.ok) throw new Error(result.message || 'Error en registro')
@@ -59,7 +59,44 @@ export default function Register() {
         isClosable: true
       })
     }
-  }
+  }*/
+    const onSubmit = async (data) => {
+      try {
+        console.log('Datos enviados:', data)
+    
+        const response = await api.post('/api/v1/usuarios/register', data, {
+          headers: { 'Content-Type': 'application/json' }
+        })
+    
+        const result = response.data
+    
+        if (result?.success === false) {
+          throw new Error(result?.message || 'Error en registro')
+        }
+    
+        toast({
+          title: 'Usuario registrado',
+          description: 'Te has registrado correctamente y debes iniciar sesión',
+          status: 'success',
+          duration: 5000,
+          isClosable: true
+        })
+    
+        reset()
+        navigate('/login')
+      } catch (error) {
+        console.error('Error al registrarse:', error)
+    
+        toast({
+          title: 'Error.',
+          description: 'No pudimos registrarte. Inténtalo de nuevo.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true
+        })
+      }
+    }
+    
   return (
     <Box
       minH='100vh'

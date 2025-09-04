@@ -1,6 +1,6 @@
 import { useToast } from '@chakra-ui/react'
 import FormularioBase from '../FormularioBase/FormularioBase.jsx'
-import axios from 'axios'
+import { api } from '../../config/api.js'
 
 export default function FormularioVenta({ productoId, onExito }) {
   const toast = useToast()
@@ -24,8 +24,9 @@ export default function FormularioVenta({ productoId, onExito }) {
 
   const handleVenta = async (data, toast) => {
     try {
-      await axios.post(
-        'https://proyecto13-backend.vercel.app/api/v1/ventas',
+      await api.post(
+        /*'https://proyecto13-backend.vercel.app/api/v1/ventas',*/
+        '/api/v1/ventas',
         {
           producto: productoId,
           metodoPago: data.metodoPago,

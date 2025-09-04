@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Box, Spinner, Center, Text } from '@chakra-ui/react'
 import VistaCompra from '../../components/VistaCompra/VistaCompra.jsx'
 import VistaVenta from '../../components/VistaVenta/VistaVenta.jsx'
 import { useAuth } from '../../customHook/useAuth'
+import { api } from '../../config/api.js'
 
 export default function MiEspacio() {
   const { user, loading: authLoading } = useAuth()
@@ -17,8 +17,9 @@ export default function MiEspacio() {
     const fetchVentas = async () => {
       setLoading(true)
       try {
-        const { data } = await axios.get(
-          'https://proyecto13-backend.vercel.app/api/v1/ventas',
+        const { data } = await api.get(
+          /*'https://proyecto13-backend.vercel.app/api/v1/ventas',*/
+          '/api/v1/ventas',
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
