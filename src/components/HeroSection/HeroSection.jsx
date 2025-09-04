@@ -1,5 +1,6 @@
 import { Box, Container, Heading, Text, Button, Image, VStack, Flex } from "@chakra-ui/react";
 import { Link } from "react-router-dom"
+import camionAtardecer from '../../assets/camionAtardecer.png'
 
 
 export default function HeroSection() {
@@ -18,7 +19,8 @@ export default function HeroSection() {
         <VStack gap={12} textAlign="center" maxW="4xl" mx="auto">
           <Box mb={16}>
             <Image
-              src="../src/assets/camionAtardecer.png"
+              /*src="../src/assets/camionAtardecer.png"*/
+              src={camionAtardecer}
               alt="Camión grúa moderno trabajando"
               w="full"
               maxW="100xl"
