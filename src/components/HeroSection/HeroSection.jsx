@@ -20,7 +20,7 @@ export default function HeroSection() {
           <Box mb={16}>
             <Image
               /*src="../src/assets/camionAtardecer.png"*/
-              src={camionAtardecer}
+              src="/camionAtardecer.png"
               alt="Camión grúa moderno trabajando"
               w="full"
               maxW="100xl"
