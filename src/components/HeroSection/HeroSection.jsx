@@ -18,7 +18,7 @@ export default function HeroSection() {
         <VStack gap={12} textAlign="center" maxW="4xl" mx="auto">
           <Box mb={16}>
             <Image
-              src="../src/assets/camionAtardecer.png"
+              src="/camionAtardecer.png"
               alt="Camión grúa moderno trabajando"
               w="full"
               maxW="100xl"
