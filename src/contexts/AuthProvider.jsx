@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const { data } = await api.get(
           /*'https://proyecto13-backend.vercel.app/api/v1/users/me',*/
-          '/api/v1/usuarios/me',
+          '/api/v1/users/me',
           {
             headers: { Authorization: `Bearer ${token}` }
           }
