@@ -10,7 +10,7 @@ import {
   useToast
 } from "@chakra-ui/react"
 import { FiSearch } from "react-icons/fi"
-import HeaderCamion from "../../assets/HeaderCamion.jpg"
+import camionAtardecer from "../../assets/HeaderCamion.jpg"
 import FormularioBase from "../FormularioBase/FormularioBase.jsx" 
 
 export default function FormularioSection() {
@@ -119,7 +119,7 @@ export default function FormularioSection() {
 
         <Box borderRadius="2xl" overflow="hidden" boxShadow="lg">
           <Image 
-            src={HeaderCamion} 
+            src={camionAtardecer} 
             alt="Camión al atardecer" 
             objectFit="cover"
             w="100%"
