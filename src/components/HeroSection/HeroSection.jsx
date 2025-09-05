@@ -1,6 +1,6 @@
 import { Box, Container, Heading, Text, Button, Image, VStack, Flex } from "@chakra-ui/react";
 import { Link } from "react-router-dom"
-
+import HeaderCamion from "../../assets/HeaderCamion.jpg"
 
 export default function HeroSection() {
   const handleScroll = () => {
@@ -18,7 +18,7 @@ export default function HeroSection() {
         <VStack gap={12} textAlign="center" maxW="4xl" mx="auto">
           <Box mb={16}>
             <Image
-              src="/camionAtardecer.png"
+              src={HeaderCamion}
               alt="Camión grúa moderno trabajando"
               w="full"
               maxW="100xl"
