@@ -17,7 +17,7 @@ export default function HeroSection() {
       <Container maxW="7xl" py={{ base: 24, lg: 32 }} position="relative" zIndex={1}>
         <VStack gap={12} textAlign="center" maxW="4xl" mx="auto">
           <Box mb={16}>
-            <Image
+            <img
               src="/camionAtardecer.png"
               alt="Camión grúa moderno trabajando"
               w="full"
