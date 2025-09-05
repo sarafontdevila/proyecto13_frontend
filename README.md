@@ -21,7 +21,8 @@ Permite a los usuarios explorar productos (camiones grúa), autenticarse, realiz
 - **Frontend**: React
 - **Estilos**: Chakra 
 - **Comunicación con backend**: fetch API/axios  
-- **Seguridad**: CORS (desde backend)  
+- **Seguridad**: CORS (desde backend)
+- **Deploy**: Vercel
 
 ---
 
