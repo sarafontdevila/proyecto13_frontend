@@ -1,12 +1,56 @@
-# React + Vite
+🚛 Plataforma de Gestión de Camiones Grúa – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositorio contiene el **frontend** de la plataforma de camiones grúa.  
+Permite a los usuarios explorar productos (camiones grúa), autenticarse, realizar compras y visualizar sus ventas en  "mi espacio". Los administradores pueden gestionar productos, usuarios y todas las ventas y verlas en "mi espacio".
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Características
+- **Home**: listado de camiones grúa disponibles.
+- **Usuarios autenticados**:
+  - Comprar productos.
+  - Ver historial de compras propias.
+- **Administradores**:
+  - Crear, actualizar y eliminar productos.
+  - Gestionar usuarios.
+  - Ver todas las ventas registradas.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tecnologías
+- **Frontend**: React
+- **Estilos**: Chakra 
+- **Comunicación con backend**: fetch API/axios  
+- **Seguridad**: CORS (desde backend)  
+
+---
+
+## 🔧 Instalación
+```bash
+git clone https://github.com/sarafontdevila/proyecto13_frontend.git
+cd proyecto13_frontend
+npm install
+npm run dev
+
+📋 Flujo de la App
+
+Pantalla principal (Home): muestra tres camiones grúa y ofrece al usuario rellenar formulario para pedir o ir al listado de camiones en venta
+
+Registro e inicio de sesión: autenticación vía JWT con backend.
+
+Gestión de productos:
+
+Usuarios → consultar productos y comprarlos. Tiene "mi espacio" para consultar compras.
+
+Admin → crear, editar y eliminar productos. Tiene "mi espacio" para crear producto y ver listado de ventas. Tambien pueden borrar o editar en la ficha  de producto en el inventario 
+
+Gestión de ventas:
+
+Usuarios → comprar productos y consultar sus compras.
+
+Admin → ver todas las ventas.
+
+Gestión de usuarios (solo admin).
+
+📄 Licencia
+Copyright © 2025 Sara Fontdevila
